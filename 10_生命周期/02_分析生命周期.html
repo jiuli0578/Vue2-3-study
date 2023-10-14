@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root" :x="n">
+        <h2>当前n的值为:{{n}}</h2>
+        <button @click="add">点我n+1</button>
+        <button @click="destroy">点击销毁Vue实例对象</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#root",
+            /* template:`
+                <div>
+                    <h2>当前n的值为:{{n}}</h2>
+                    <button @click="add">点我n+1</button>
+                </div>
+            `, */   //使用此方法,会将容器里面的所有东西替换
+            data:{
+                n:1
+            },
+            methods: {
+                add(){
+                    this.n++
+                },
+                destroy() {
+                    console.log('destroy');
+                    this.$destroy()
+                },
+            },
+            beforeCreate() {
+                console.log('beforeCreate');
+                /* console.log(this);
+                debugger */
+                // 此时Vue实例对象中没有date、add()等
+            },
+            created() {
+                console.log('created');
+                /* console.log(this);
+                debugger */
+                // 此时Vue实例对象中有date、add()等
+            },
+            beforeMount() {
+                console.log('beforeMount');
+                /* console.log(this);
+                debugger */
+                /* 
+                    此时页面显示的还是未经编译的DOM结构
+                        所有对DOM的操作,最终都不生效
+                */
+            },
+            mounted() {
+                console.log('mounted');
+                /* console.log(this);
+                debugger */
+                /* 
+                    此时页面显示的是已经编译后的DOM 
+                        对DOM的操作均有效
+                */
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+                /* console.log(this.n);
+                debugger */
+                /* 
+                    此时数据是新的,但是页面是旧的
+                        即页面和数据不同步
+                */
+            },
+            updated() {
+                console.log('update');
+                /* console.log(this.n);
+                debugger */
+                /* 
+                    此时数据和页面都是新的
+                        即页面和数据保持同步
+                */
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy');
+                /* 
+                    此时Vue实例对象中所有都处于可用状态
+                        一般在此阶段会关闭定时器、取消订阅消息、解绑自定义事件等
+                */
+            },
+            destroyed() {
+                console.log('destroyed');
+            },
+        })
+    </script>
+</body>
+</html>

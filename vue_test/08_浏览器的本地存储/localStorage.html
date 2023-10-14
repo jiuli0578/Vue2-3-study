@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        webStorage
+            1.存储的内容大小一把支持5MB左右(不同浏览器可能不一样)
+            2.浏览器端通过Window.seesionStorage和Window.loaclStorage属性来实现本地存储机制
+            3.相关API:
+                (1)xxxStorage.setItem('key','value')
+                    该方法接收一个键值对多为参数,会把它添加到存储中
+                        如果键名存在,则会更新其对应的值
+                (2)xxxStorage.getItem('key')
+                    该方法接收一个键名作为参数,返回键名对应的值
+                (3)xxxStorage.removeItem('key')
+                    该方法接收一个键名作为参数,并把该键名对应的键值对从存储中删除
+                (4)xxxStorage.clear()
+                    该方法会清空存储中的所有数据
+            4.备注:
+                (1)sessionStorage存储的内容会随着浏览器窗口关闭而消失
+                (2)localStorage存储的内容,需要手动清除才会消失
+                (3)xxxStorage.getItem('key')如果对应的value获取不到
+                    那么返回值将会是null,并且JSON.parse(xxx)的结果依然是null
+                
+     -->
+    <button onclick="setData()">点击添加一个数据</button><br><br>
+    <button onclick="readData()">点击读取一个数据</button><br><br>
+    <button onclick="deleteData()">点击删除一个数据</button><br><br>
+    <button onclick="clearData()">点击清空数据</button>
+    <script>
+        let person = {name:"孙悟空",age:18}
+        function setData(){
+            localStorage.setItem('person',JSON.stringify(person))
+            localStorage.setItem('msg','我是齐天大圣')
+        }
+        function readData(){
+            console.log(JSON.parse(localStorage.getItem('person'))); 
+            console.log(localStorage.getItem('msg'));
+        }
+        function deleteData(){
+            localStorage.removeItem('msg')
+        }
+        function clearData(){
+            localStorage.clear()
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .demo1{
+            height: 50px;
+            background-color: aqua;
+        }
+        .box1{
+            padding: 5px;
+            background-color: crimson;
+        }
+        .box2{
+            padding: 5px;
+            background-color: tomato;
+        }
+        .list{
+            width: 200px;
+            height: 200px;
+            background-color: turquoise;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            1.prevent   阻止默认事件（常用）
+            2.stop      阻止事件冒泡（常用）
+            3.once      事件只触发一次（常用）
+            4.capture   使用事件的捕获模式
+            5.self      只有event.target是当前操作的元素时才触发事件
+            6.passive   事件的默认行为立即执行，无需等待事件回调执行完毕
+            注：修饰符可以连写
+                例如：@click.stop.prevent
+     -->
+    <div id="root">
+        <h2>欢迎来到{{name}}学习</h2>
+        <!-- 阻止默认事件（常用） -->
+        <a href="http://www.atguigu.com" @click.prevent="showInfo1">点我显示信息</a>
+        <!-- 阻止事件冒泡（常用） -->
+        <div class="demo1" @click="showInfo3">
+            <button @click.stop="showInfo2">点我提示信息</button>
+        </div>
+        <!-- 事件只触发一次（常用） -->
+        <button @click.once="showInfo2">点我提示信息</button>
+        <!-- 使用事件的捕获模式 -->
+        <div class="box1" @click.capture="showMsg(1)">
+            div1
+            <div class="box2" @click="showMsg(2)">div2</div>
+        </div>
+        <!-- 只有event.target是当前操作的元素时才触发事件 -->
+        <div class="demo1" @click.self="showInfo3">
+            <button @click="showInfo2">点我提示信息</button>
+        </div>
+        <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <!-- 
+            滚动事件有两种：scroll和wheel
+            区别：
+                scroll是滚动条的滚动，滚动条不动就不触发
+                wheel是鼠标滚轮的滚动，滚轮滚动就触发
+         -->
+        <ul class="list" @wheel.passive="demo()">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                name:"东华理工大学"
+            },
+            methods:{
+                showInfo1(event){
+                    alert("你好啊")
+                },
+                showInfo2(event){
+                    alert("你好啊")
+                    console.log(event.target);
+                },
+                showInfo3(event){
+                    alert("嘿嘿嘿")
+                },
+                showMsg(msg){
+                    console.log(msg);
+                },
+                demo(){
+                    for(let i = 0; i < 10000; i++){
+                        console.log("@");
+                    }
+                    console.log("累坏了");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="setData()">点击添加一个数据</button><br><br>
+    <button onclick="readData()">点击读取一个数据</button><br><br>
+    <button onclick="deleteData()">点击删除一个数据</button><br><br>
+    <button onclick="clearData()">点击清空数据</button>
+    <script>
+        let person = {name:"孙悟空",age:18}
+        function setData(){
+            sessionStorage.setItem('person',JSON.stringify(person))
+            sessionStorage.setItem('msg','我是齐天大圣')
+        }
+        function readData(){
+            console.log(JSON.parse(sessionStorage.getItem('person'))); 
+            console.log(sessionStorage.getItem('msg'));
+        }
+        function deleteData(){
+            sessionStorage.removeItem('msg')
+        }
+        function clearData(){
+            sessionStorage.clear()
+        }
+    </script>
+</body>
+</html>

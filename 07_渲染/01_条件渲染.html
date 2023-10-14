@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        条件渲染：
+            1.v-if
+                写法：
+                    （1）v-if="表达式"
+                    （2）v-else-if="表达式"
+                    （3）v-else="表达式"
+                适用于：切换频率较低的场景
+                特点：不展示的DOM元素直接被移除
+                注意：v-if可以和v-else-if、v-else一起使用
+                        但要求结构不能被打断
+            2.v-show
+                写法：v-show="表达式"
+                适用于：切换频率较高的场景
+                特点：不展示的DOM元素未被移除，只是使用样式隐藏了
+            3.备注：使用v-if时，元素可能无法获取到；
+                        而使用v-show一定可以获取到
+     -->
+    <div id="root">
+        <h1>条件渲染,当前n的值为：{{n}}</h1>
+        <button @click="n++">点击加一</button>
+        <hr>
+        <!-- 使用v-show做条件渲染 -->
+        <h2 v-show="n === 1">Hello,{{name1}}</h2>
+        <!-- 使用v-if做条件渲染 -->
+        <h2 v-if="n === 2">Hello,{{name2}}</h2>
+        <h2 v-else-if="n === 3">Hello,{{name3}}</h2>
+        <h2 v-else>Hello,{{name4}}</h2>
+        <!-- v-if与template的配合使用，不会影响原框架结构 -->
+        <template v-if="n === 5">
+            <h2>Hello</h2>
+            <h2>I am King</h2>
+            <h2>他们都叫我King</h2>
+        </template>
+    </div>
+    <script>
+        new Vue({
+            el:"#root",
+            data:{
+                n:0,
+                name1:"孙悟空",
+                name2:"猪八戒",
+                name3:"沙和尚",
+                name4:"唐僧"
+            }
+        })
+    </script>
+</body>
+</html>

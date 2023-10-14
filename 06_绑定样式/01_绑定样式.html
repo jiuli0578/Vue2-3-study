@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .basic{
+            border: 2px solid black;
+            width: 250px;
+            height: 100px;
+
+        }
+        .happy{
+            background:linear-gradient(45deg,red,yellow,green);
+        }
+        .normal{
+            background-color: aqua;
+        }
+        .unhappy{
+            background-color: steelblue;
+        }
+        .a{
+            tab-size: 20px;
+        }
+        .b{
+            background-color: yellow;
+        }
+        .c{
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        绑定样式：
+            1.class样式
+                写法：class="xxx" xxx可以是字符串、对象、数组
+                    字符串写法适用于：类名不确定，要动态获取
+                    对象写法适用于：要绑定对各央视，个数不确定，名字也不确定
+                    数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定是否使用
+            2.style样式
+                写法：
+                    1.:style="{fontSize:xxx}" 其中xxx是动态值
+                    2.:style="[a,b]" 其中a，b是样式对象
+     -->
+    <div id="root">
+        <!-- 
+            绑定class样式 -- 字符串写法，
+                适用于样式的类名不确定，需要动态指定
+        -->
+        <div class="basic" :class="mood" @click="changeMood">{{text}}</div><br><br>
+        
+        <!-- 
+            绑定class样式 -- 数组写法，
+                适用于要绑定的样式个数不确定，名字也不确定
+        -->
+        <div class="basic" :class="classArr">{{text}}</div><br><br>
+        <!-- 
+            绑定class样式 -- 对象写法，
+                适用于要绑定的样式个数确定，名字也确定，但需要动态决定用不用
+        -->
+        <div class="basic" :class="classObj">{{text}}</div><br><br>
+        <!-- 绑定style样式 -- 对象写法 -->
+        <div class="basic" :style="styleObj">{{text}}</div><br><br>
+        <!-- 绑定style样式 -- 数组写法 -->
+        <div class="basic" :style="styleArr">{{text}}</div>
+    </div>
+    <script>
+        new Vue({
+            el:"#root",
+            data:{
+                text:"这是一段文字",
+                mood:"normal",
+                classArr:['a','b','c'],
+                classObj:{
+                    a:true,
+                    b:true
+                },
+                styleObj:{
+                    fontSize:"40px",
+                    color:"blue"
+                },
+                styleArr:[
+                    {
+                        fontSize:"40px",
+                        color:"red"
+                    },
+                    {
+                        backgroundColor:"green"
+                    }
+                ]
+            },
+            methods: {
+                changeMood(){
+                    const moodArr = ['happy','unhappy','normal']
+                    this.mood = moodArr[Math.floor(Math.random()*3)]
+                    console.log(this.mood);
+                }
+            },
+            
+        })
+    </script>
+</body>
+</html>

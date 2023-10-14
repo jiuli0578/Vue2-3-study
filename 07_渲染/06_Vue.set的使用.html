@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>学校信息</h1>
+        <h2>名称：{{school.name}}</h2>
+        <h2>地址：{{school.address}}</h2>
+        <h2 v-if="school.college">学院：{{school.college}}</h2>
+        <hr>
+        <h1>学生信息</h1>
+        <button @click="addGender">点击添加性别属性，默认值为男</button>
+        <h2>姓名：{{student.name}}</h2>
+        <h2 v-if="student.gender">性别：{{student.gender}}</h2>
+        <h2>年龄：真实{{student.age.tAge}} - 虚假{{student.age.fAge}}</h2>
+        <h2>朋友</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" ::key="index">
+                {{f.name}} - {{f.age}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                school:{
+                    name:"东华理工大学",
+                    address:"江西南昌"
+                },
+                student:{
+                    name:"孙悟空",
+                    age:{
+                        tAge:518,
+                        fAge:18
+                    },
+                    friends:[
+                        {name:"猪八戒",age:28},
+                        {name:"沙和尚",age:38}
+                    ]
+                }
+            },
+            methods: {
+                addGender(){
+                    Vue.set(this.student,"gender","男")
+                    // this.$set(this.student,"gender","男")
+                    // vm.$set()和Vue.set()两种方法
+                }
+            },
+        })
+    </script>
+</body>
+</html>

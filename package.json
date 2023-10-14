@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "axios": "^1.4.0",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^1.1.1"
+  }
+}
